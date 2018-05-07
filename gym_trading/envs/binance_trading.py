@@ -65,9 +65,9 @@ class BinanceTradingEnv(gym.Env):
         else:
             self.capital = Capital(capital)
 
-        self.observation_space = spaces.Box(high=np.inf, low=-np.inf, shape=(len(self.curr_info_vars)+4,))
+        self.observation_space = spaces.Box(high=np.inf, low=-np.inf, shape=(len(self.curr_info_vars)+4,), dtype=np.float32)
         #Made only for one currency pair
-        self.action_space = spaces.Box(high=1, low=-1, shape=(1,))
+        self.action_space = spaces.Box(high=1, low=-1, shape=(1,), dtype=np.float32)
 
     @property
     def ticker(self):
