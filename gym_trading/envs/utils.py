@@ -6,6 +6,23 @@ from collections import namedtuple
 import copy
 from enum import Enum
 
+def hdf_generator(path, chunk_size=10000, pair=None, columns=None):
+    """
+        Returns a new generator object.
+    """
+    def generator():
+        iterator = pd.read_hdf(path, chunksize=chunk_size)
+        for chunk in iterator:
+            if pair:
+                chunk = chunk[chunk.s == pair]
+            if columns:
+                chunk = chunk[columns]
+            for i, row in chunk.iterrows():
+                yield row
+        return None
+    return generator
+
+
 class OrderType(Enum):
 
     SELL_ORDER = 'SELL'
